@@ -1,0 +1,113 @@
+import com.android.build.gradle.AppPlugin
+import com.android.build.gradle.LibraryPlugin
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    apply from: "dependencies.gradle"
+
+    ext {
+        compose_version = '1.0.0-alpha08'
+    }
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.0-alpha04"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.13'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+subprojects {
+    def directories = ["shared", "feature"]
+
+    if (!directories.contains(project.name)) {
+
+        if (project.name == "app") {
+            apply plugin: AppPlugin
+        } else {
+            apply plugin: LibraryPlugin
+        }
+
+        apply plugin: 'kotlin-android'
+        apply plugin: "kotlin-android-extensions"
+
+        sourceSets {
+            main.java.srcDirs += ["src/main/kotlin"]
+        }
+
+        android {
+            defaultConfig {
+                compileSdkVersion 30
+                buildToolsVersion "30.0.2"
+                minSdkVersion 21
+                targetSdkVersion 30
+                versionCode 1
+                versionName "1.0"
+            }
+
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            }
+
+            kotlinOptions {
+                jvmTarget = '1.8'
+                useIR = true
+            }
+
+            composeOptions {
+                kotlinCompilerVersion "${versions.kotlin}"
+                kotlinCompilerExtensionVersion "${versions.compose}"
+            }
+
+            buildFeatures {
+                compose true
+            }
+        }
+
+        dependencies {
+            implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+            implementation "androidx.core:core-ktx:${versions.coreKtx}"
+            implementation "androidx.appcompat:appcompat:${versions.appCompat}"
+
+            implementation "androidx.datastore:datastore-preferences:${versions.preferences}"
+
+            implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
+            implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
+            implementation "androidx.navigation:navigation-compose:${versions.navigationCompose}"
+
+            implementation "androidx.compose.ui:ui:${versions.compose}"
+            implementation "androidx.compose.ui:ui-tooling:${versions.compose}"
+            implementation "androidx.compose.foundation:foundation:${versions.compose}"
+            implementation "androidx.compose.material:material:${versions.compose}"
+            implementation "androidx.compose.material:material-icons-core:${versions.compose}"
+            implementation "androidx.compose.material:material-icons-extended:${versions.compose}"
+            implementation "androidx.compose.runtime:runtime-livedata:${versions.compose}"
+
+
+            implementation "org.koin:koin-androidx-scope:${versions.koin}"
+            implementation "org.koin:koin-androidx-viewmodel:${versions.koin}"
+            implementation "org.koin:koin-androidx-compose:${versions.koin}"
+
+            //Coroutines
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.lukianbat.weatherexpert.feature.main";
+option java_multiple_files = true;
+
+message CityPreferences {
+  string city = 1;
+  string name = 2;
+  string country = 3;
+  string countryCode = 4;
+  string region = 5;
+  string regionCode = 6;
+  double latitude = 7;
+  double longitude = 8;
+}

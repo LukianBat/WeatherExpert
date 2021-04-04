@@ -1,0 +1,8 @@
+include ':app'
+include ':shared:preferences'
+include ':shared:ui'
+include ':shared:navigation'
+include ':feature:splash'
+include ':feature:onboarding'
+include ':feature:main'
+include ':shared:network'

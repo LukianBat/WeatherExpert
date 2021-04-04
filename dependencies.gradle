@@ -1,0 +1,21 @@
+ext {
+    versions = [
+            "kotlin"           : "1.4.21",
+            "gradle"           : '7.0.0-alpha04',
+            "coreKtx"          : "1.3.2",
+            "appCompat"        : "1.2.0",
+            "material"         : "1.2.1",
+            "constraint"       : "2.0.4",
+            "navigation"       : "2.3.2",
+            "navigationCompose": "1.0.0-alpha04",
+            "compose"          : "1.0.0-alpha09",
+            "preferences"      : "1.0.0-alpha06",
+            "coroutines"       : "1.4.1",
+
+            "koin"             : "2.2.1",
+            "retrofit"         : "2.6.4",
+            "gson"             : "2.8.6",
+            "gson_converter"   : "2.6.1",
+            "log_interceptor"  : "3.12.6"
+    ]
+}
